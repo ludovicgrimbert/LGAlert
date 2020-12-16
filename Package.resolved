@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CustomFont",
+        "repositoryURL": "https://github.com/ludovicgrimbert/CustomFont",
+        "state": {
+          "branch": null,
+          "revision": "a3eeba2a808f8435690275942dddf9d8d2ca8170",
+          "version": "0.1.1"
+        }
+      },
+      {
+        "package": "LGNeumorphism",
+        "repositoryURL": "https://github.com/ludovicgrimbert/LGNeumorphism",
+        "state": {
+          "branch": null,
+          "revision": "2f709fb6f9eda3aee423c074b32a60ff247616b7",
+          "version": "0.1.7"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
