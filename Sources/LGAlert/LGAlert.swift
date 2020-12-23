@@ -12,8 +12,6 @@ import LGNeumorphism
 import CustomFont
 
 public struct LGAlert: View {
-        
-    /// Alert Fields
     var title: Text
     var fontName: String
     var style: UIFont.TextStyle
@@ -23,8 +21,6 @@ public struct LGAlert: View {
     var imageHeight: CGFloat
     var imagePaddingTop: CGFloat
     var buttonStack: [LGAlert.Button]
-    
-    /// Theme and Animation
     var theme = LGAlert.Theme()
     var animation = LGAlert.LGAnimation()
     
@@ -53,7 +49,6 @@ public struct LGAlert: View {
     }
     
     public var body: some View {
-        
         ZStack {
             VStack {
                 Image(self.imageName ?? "")
@@ -64,7 +59,7 @@ public struct LGAlert: View {
                 self.title.padding(.init(top: 35, leading: 25, bottom: 15, trailing: 25))
                     .multilineTextAlignment(.center)
                     .foregroundColor(theme.alertTextColor)
-                     .customFont(name: fontName, style: style, weight: weight)
+                    .customFont(name: fontName, style: style, weight: weight)
                 if buttonStack.count < 3 {
                     HStack {
                         ForEach((0...(buttonStack.count)-1), id: \.self) {
@@ -100,15 +95,16 @@ extension LGAlert {
         case `default`
     }
     public struct Button: View {
-        
-        let text: Text
-        let width: CGFloat
-        let height: CGFloat
+        var text: Text
+        var width: CGFloat
+        var height: CGFloat
         var isNeumorphism: Bool
         var fontName: String
         var style: UIFont.TextStyle
         var weight: Font.Weight
         var color: Color
+        var shadowColorPrimary: Color
+        var shadowColorSecondary: Color
         var buttonType: LGAlert.ButtonType = .default
         
         let dismissAction: () -> Void = {
@@ -126,6 +122,8 @@ extension LGAlert {
                      style: UIFont.TextStyle,
                      weight: Font.Weight,
                      color: Color,
+                     shadowColorPrimary: Color,
+                     shadowColorSecondary: Color,
                      buttonType: LGAlert.ButtonType,
                      action: (() -> Void)? = {}) {
             self.text = text
@@ -136,6 +134,8 @@ extension LGAlert {
             self.style = style
             self.weight = weight
             self.color = color
+            self.shadowColorPrimary = shadowColorPrimary
+            self.shadowColorSecondary = shadowColorSecondary
             self.buttonType = buttonType
             self.buttonAction = action
         }
@@ -153,7 +153,9 @@ extension LGAlert {
                                                          vision: .shadow,
                                                          width: width,
                                                          height: height,
-                                                         color: color) }
+                                                         color: color,
+                                                         shadowColorPrimary: shadowColorPrimary,
+                                                         shadowColorSecondary: shadowColorSecondary) }
                     
                     text.frame(width: width, height: height, alignment: .center)
                         .customFont(name: fontName, style: style, weight: weight)
@@ -168,7 +170,9 @@ extension LGAlert {
                                      fontName: String = "Helvetica Neue",
                                      style: UIFont.TextStyle = .body,
                                      weight: Font.Weight = .light,
-                                     color: Color = Color.white,
+                                     color: Color = .white,
+                                     shadowColorPrimary: Color = .black,
+                                     shadowColorSecondary: Color = .white,
                                      action: (() -> Void)? = {}) -> LGAlert.Button {
             return LGAlert.Button(text: label,
                                   width: width,
@@ -178,6 +182,8 @@ extension LGAlert {
                                   style: style,
                                   weight: weight,
                                   color: color,
+                                  shadowColorPrimary: shadowColorPrimary,
+                                  shadowColorSecondary: shadowColorSecondary,
                                   buttonType: .default,
                                   action: action)
         }
@@ -189,7 +195,6 @@ extension LGAlert {
 extension LGAlert {
     
     struct Window: View {
-        
         var windowColor: Color
         var opacity: Double
         var cornerRadius: CGFloat
@@ -214,7 +219,6 @@ extension LGAlert {
 extension LGAlert {
     
     public struct LGAnimation {
-        
         let transition: AnyTransition
         
         public init() {
@@ -262,7 +266,6 @@ extension LGAlert {
 extension LGAlert {
     
     public struct Theme {
-        
         /// Default theme
         public static var defaultTheme: LGAlert.Theme = custom()
         
@@ -276,12 +279,11 @@ extension LGAlert {
         var defaultButtonColor: Color
         var defaultButtonTextColor: Color
         
-        // Public init
         public init() {
             self = LGAlert.Theme.defaultTheme
         }
         
-        // Private init
+        /// Private init
         private init(windowColor: Color, alertTextColor: Color, cornerRadius: CGFloat, opacity: Double, defaultButtonColor: Color, defaultButtonTextColor: Color) {
             self.windowColor = windowColor
             self.alertTextColor = alertTextColor

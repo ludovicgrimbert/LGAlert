@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 class LGAlertViewController: UIHostingController<LGAlertView> {
-    
     var alertview: LGAlertView
     var isPresented: Binding<Bool>
     
@@ -26,6 +25,5 @@ class LGAlertViewController: UIHostingController<LGAlertView> {
     public override func viewWillDisappear(_ animated: Bool) {
         self.isPresented.wrappedValue =  false
     }
-    
 }
 
